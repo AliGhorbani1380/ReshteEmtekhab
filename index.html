@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111c34">
+  <meta name="description" content="سامانه شخصی مدیریت اولویت‌های انتخاب رشته؛ جابه‌جایی آسان، ویرایش و خروجی PDF بدون سرور.">
+  <title>اولویت‌چین | مدیریت انتخاب رشته</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="topbar-inner container">
+        <a class="brand" href="#home" aria-label="اولویت‌چین - خانه">
+          <span class="brand-logo" aria-hidden="true"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h2.5M4 12h2.5M4 17.5h2.5M11 6.5h9M11 12h9M11 17.5h9"/><path d="m5.3 4.8 1.2 1.7-1.2 1.7M5.3 10.3 6.5 12l-1.2 1.7M5.3 15.8l1.2 1.7-1.2 1.7"/></svg></span>
+          <span class="brand-wordmark">اولویت<span>چین</span><small>دستیار انتخاب رشته</small></span>
+        </a>
+        <div class="topbar-actions">
+          <span class="save-status" id="saveStatus"><span class="status-dot"></span>ذخیره‌شده در این مرورگر</span>
+          <button class="btn btn-quiet topbar-help" type="button" id="helpBtn">راهنما <span aria-hidden="true">؟</span></button>
+          <button class="btn btn-light" type="button" id="backupBtn"><span aria-hidden="true">↥</span> پشتیبان</button>
+          <button class="btn btn-primary" type="button" id="exportBtn"><span aria-hidden="true">↓</span> خروجی PDF</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" id="home">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-icon">✦</span> برنامه‌ریز هوشمندِ اولویت‌ها</div>
+          <h1>انتخاب‌هایت را <span>به ترتیب دلخواهت</span> بچین.</h1>
+          <p>همه انتخاب‌ها یک‌جا؛ جابه‌جایی با کشیدن، ویرایش سریع و گرفتن PDF مرتب. بدون ثبت‌نام و بدون نیاز به نصب نرم‌افزار.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" id="addTopBtn" type="button"><span aria-hidden="true">＋</span> افزودن انتخاب جدید</button>
+            <button class="btn btn-outline btn-lg" id="sourceTopBtn" type="button">دیدن عکس‌های اصلی <span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="float-label label-a">یک لیست، همه انتخاب‌ها <span>✓</span></div>
+          <div class="floating-stack">
+            <div class="mini-choice"><span class="mini-num">01</span><span class="mini-line"><b></b><i></i></span><span class="mini-blob">◈</span></div>
+            <div class="mini-choice second"><span class="mini-num">02</span><span class="mini-line"><b></b><i></i></span><span class="mini-blob">◈</span></div>
+            <div class="mini-choice third"><span class="mini-num">03</span><span class="mini-line"><b></b><i></i></span><span class="mini-blob">◈</span></div>
+            <div class="drag-symbol">↕</div>
+          </div>
+          <div class="float-label label-b">خروجی PDF آماده <span>↓</span></div>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="آمار انتخاب‌ها">
+        <div class="stat-card"><span class="stat-icon indigo">▤</span><div><span class="stat-label">کل انتخاب‌ها</span><strong id="totalCount">۱۳۶</strong></div></div>
+        <div class="stat-card"><span class="stat-icon teal">✓</span><div><span class="stat-label">فعال در خروجی</span><strong id="activeCount">۱۳۴</strong></div></div>
+        <div class="stat-card"><span class="stat-icon amber">⌕</span><div><span class="stat-label">نیازمند بازبینی متن عکس</span><strong id="reviewCount">۴۱</strong></div></div>
+        <div class="stat-card"><span class="stat-icon rose">⊘</span><div><span class="stat-label">غیرفعال / خط‌خورده</span><strong id="inactiveCount">۲</strong></div></div>
+      </section>
+
+      <div class="workspace" id="workspace">
+        <section class="list-panel" aria-labelledby="listTitle">
+          <div class="panel-heading">
+            <div><div class="section-overline">لیست شخصی شما</div><h2 id="listTitle">ترتیب اولویت‌ها <span id="listCount" class="count-pill">۱۳۶</span></h2><p>دستگیره ⋮⋮ را بکش یا از منوی هر ردیف «انتقال به رتبه» را بزن.</p></div>
+            <div class="heading-actions"><button id="undoBtn" type="button" class="icon-button" title="بازگشت به تغییر قبل (Ctrl+Z)" aria-label="واگرد">↶</button><button id="redoBtn" type="button" class="icon-button" title="انجام دوباره (Ctrl+Y)" aria-label="بازانجام">↷</button><button id="addBtn" type="button" class="btn btn-dark">+ انتخاب جدید</button></div>
+          </div>
+          <div class="filters-row">
+            <div class="search-field"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="searchInput" type="search" placeholder="جستجو در رشته، دانشگاه یا کدرشته..." autocomplete="off" aria-label="جستجوی انتخاب‌ها"><kbd>/</kbd></div>
+            <select id="statusSelect" class="select-field" aria-label="فیلتر وضعیت"><option value="all">همه وضعیت‌ها</option><option value="active">فقط فعال</option><option value="inactive">فقط غیرفعال</option><option value="review">نیاز به بازبینی</option></select>
+          </div>
+          <div class="tabs" id="categoryTabs" role="tablist" aria-label="دسته انتخاب‌ها">
+            <button type="button" class="tab active" data-category="all">همه انتخاب‌ها</button>
+            <button type="button" class="tab" data-category="پزشکی">پزشکی</button>
+            <button type="button" class="tab" data-category="دندان‌پزشکی">دندان‌پزشکی</button>
+            <button type="button" class="tab" data-category="داروسازی">داروسازی</button>
+            <button type="button" class="tab" data-category="سایر">سایر رشته‌ها</button>
+          </div>
+          <div class="table-intro"><span>اولویت‌ها <span id="visibleCount">—</span></span><span id="dragNotice">برای تغییر ترتیب، ردیف را با دستگیره جابه‌جا کنید.</span></div>
+          <div id="choices" class="choices" aria-live="polite"></div>
+          <div class="list-footer"><span id="footerCount"></span><button id="bottomAddBtn" type="button" class="btn btn-subtle">+ افزودن انتخاب در انتهای لیست</button></div>
+        </section>
+        <aside class="sidebar" aria-label="ابزارها و راهنما">
+          <section class="side-card quick-card"><div class="side-icon">✦</div><h3>همه چیز دست خودته</h3><p>ردیف‌ها را مرتب کن، کدرشته‌ها را اصلاح کن و در نهایت فهرست اختصاصی خودت را تحویل بگیر.</p><div class="quick-list"><div><span>⠿</span><div><b>مرتب‌سازی آسان</b><small>کشیدن ردیف یا انتخاب رتبه دقیق</small></div></div><div><span>✎</span><div><b>ویرایش بدون محدودیت</b><small>عنوان، کدرشته، یادداشت و وضعیت</small></div></div><div><span>▣</span><div><b>PDF فارسی و مرتب</b><small>خروجی چندصفحه‌ای مناسب چاپ</small></div></div></div></section>
+          <section class="side-card verification-card"><div class="notice-heading"><span>!</span><h3>بررسی کدرشته‌ها ضروری است</h3></div><p>این لیست از روی عکس‌های دست‌نویس وارد شده است. برای ثبت نهایی، کدرشته‌ها، ظرفیت و نوع دوره را با دفترچه رسمی سنجش تطبیق بده.</p><button id="reviewBtn" class="text-button" type="button">نمایش موارد نیازمند بازبینی ←</button></section>
+          <section class="side-card tools-card"><h3>ابزارهای بیشتر</h3><button id="exportJsonBtn" type="button">↧ دانلود فایل پشتیبان (JSON)</button><button id="exportCsvBtn" type="button">☷ خروجی Excel / CSV</button><button id="importBtn" type="button">↥ وارد کردن فایل پشتیبان</button><button id="printBtn" type="button">▤ چاپ / PDF متنی مرورگر</button><button id="resetBtn" type="button" class="danger-link">⟲ بازنشانی به عکس‌های اولیه</button></section>
+          <div class="privacy-note">🔒 داده‌ها در مرورگر خودت ذخیره می‌شوند و به سروری ارسال نمی‌شوند. برای انتقال به دستگاه دیگر، فایل پشتیبان بگیر.</div>
+        </aside>
+      </div>
+      <footer class="footer"><span>اولویت‌چین <span class="footer-dot">·</span> یک ابزار شخصی برای مدیریت انتخاب رشته</span><span>ساخته‌شده با HTML, CSS, JavaScript — قابل میزبانی در GitHub Pages</span></footer>
+    </main>
+  </div>
+  <div id="modalRoot"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <input type="file" id="importFile" accept=".json,application/json" hidden>
+  <script src="src/data.js"></script>
+  <script src="src/pdf.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>
